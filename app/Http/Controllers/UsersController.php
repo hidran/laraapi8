@@ -14,7 +14,16 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return User::all();
+        $res = [
+            'data' =>[],
+            'message' => ''
+        ];
+        try{
+            $res['data'] = User::all();
+        } catch (\Exception $e){
+            $res['message'] = $e->getMessage();
+        }
+        return $res;
     }
 
     /**
@@ -44,9 +53,18 @@ class UsersController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show( $user)
     {
-        //
+        $res = [
+            'data' =>[],
+            'message' => ''
+        ];
+        try{
+            $res['data'] = User::findOrFail($user);
+        } catch (\Exception $e){
+            $res['message'] = $e->getMessage();
+        }
+        return $res;
     }
 
     /**
