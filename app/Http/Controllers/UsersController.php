@@ -87,7 +87,25 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $data = $request->except(['id']);
+        $res = [
+            'data' => null,
+            'message' => '',
+            'success' => true
+        ];
+
+        try {
+            $data['password'] = 'dededede';
+            $User = User::findOrFail($user);
+            $data['password'] = \Hash::make($data['password']);
+            $User->update($data);
+            $res['data'] = $User;
+            $res['message'] = 'User updated!';
+        } catch (\Exception $e) {
+            $res['success'] = false;
+            $res['message'] = $e->getMessage();
+        }
+        return $res;
     }
 
     /**
