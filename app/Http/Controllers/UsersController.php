@@ -19,7 +19,7 @@ class UsersController extends Controller
             'message' => ''
         ];
         try{
-            $res['data'] = User::all();
+            $res['data'] = User::orderBy('id','DESC')->get();
         } catch (\Exception $e){
             $res['message'] = $e->getMessage();
         }
